@@ -39,8 +39,11 @@ func (auth *WorkWx) getEmployee(userId string) (rsp RspEmployee) {
 func (auth *WorkWx) getOpenId(userId string) (rsp RspOpenId) {
 	resp, err := r.HttpClient.R().SetQueryParam("access_token", auth.AccessToken()).SetFormData(map[string]string{"userid": userId}).Post(ApiUri + "user/convert_to_openid")
 	if err != nil {
-		panic(&e.GoAuthError{Err: err.Error(), Info: "请求企业微信接口出错-读取成员"})
+		panic(&e.GoAuthError{Err: err.Error(), Info: "请求企业微信接口出错-userid转换openid"})
 	}
 	json.Unmarshal(resp.Body(), &rsp)
+	if rsp.Errcode != 0 {
+		panic(&e.GoAuthError{Err: rsp.Errmsg, Info: "请求企业微信接口出错-userid转换openid"})
+	}
 	return
 }
