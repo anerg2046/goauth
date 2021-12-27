@@ -25,8 +25,8 @@ type RspAccessToken struct {
 
 type RspUserInfo struct {
 	err
-	UserId string `json:"user_id,omitempty"`
-	OpenId string `json:"open_id,omitempty"`
+	UserId string `json:"UserId,omitempty"`
+	OpenId string `json:"OpenId,omitempty"`
 }
 
 type RspEmployee struct {
