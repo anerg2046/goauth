@@ -8,5 +8,6 @@ type UserInfo struct {
 	Gender     string `json:"gender,omitempty"`
 	Avatar     string `json:"avatar,omitempty"`
 	Email      string `json:"email,omitempty"`
+	Mobile     string `json:"mobile,omitempty"`
 	IsEmployee bool   `json:"is_employee,omitempty"`
 }

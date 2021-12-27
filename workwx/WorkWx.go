@@ -63,7 +63,8 @@ func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
 		userInfo.OpenId = auth.getOpenId(uinfo.UserId).OpenId
 		userInfo.Avatar = employee.Avatar
 		userInfo.Email = employee.Email
-		userInfo.Gender = employee.Gender
+		userInfo.Mobile = employee.Mobile
+		userInfo.Gender = parseGender(employee.Gender)
 		userInfo.Nick = employee.Name
 		userInfo.IsEmployee = true
 	} else {
@@ -72,4 +73,14 @@ func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
 	}
 	userInfo.Source = "workwx"
 	return
+}
+
+func parseGender(gender string) string {
+	switch gender {
+	case "1":
+		return "m"
+	case "2":
+		return "f"
+	}
+	return "n"
 }
