@@ -3,7 +3,7 @@ package goauth
 import (
 	"strings"
 
-	"github.com/anerg2046/goauth/goauthconf"
+	"github.com/anerg2046/goauth/authtype"
 	"github.com/anerg2046/goauth/i"
 	"github.com/anerg2046/goauth/workwx"
 
@@ -16,7 +16,7 @@ func init() {
 	cache = cache2go.Cache("goauth")
 }
 
-func NewGoAuth(platform string, config *goauthconf.AuthConf) i.GoAuth {
+func NewGoAuth(platform string, config *authtype.AuthConf) i.GoAuth {
 	platform = strings.ToLower(platform)
 	switch platform {
 	case "workwx":

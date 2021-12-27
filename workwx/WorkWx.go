@@ -3,14 +3,14 @@ package workwx
 import (
 	"net/url"
 
+	"github.com/anerg2046/goauth/authtype"
 	e "github.com/anerg2046/goauth/error"
-	"github.com/anerg2046/goauth/goauthconf"
 	"github.com/anerg2046/goauth/i"
 
 	"github.com/muesli/cache2go"
 )
 
-func NewWorkWx(config *goauthconf.AuthConf, cache *cache2go.CacheTable) i.GoAuth {
+func NewWorkWx(config *authtype.AuthConf, cache *cache2go.CacheTable) i.GoAuth {
 	return &WorkWx{
 		conf:  config,
 		cache: cache,
@@ -54,4 +54,17 @@ func (auth *WorkWx) GetRedirectUrl() string {
 		q.Add("redirect_uri", auth.conf.Callback)
 		return "https://open.weixin.qq.com/connect/oauth2/authorize?" + q.Encode() + "#wechat_redirect"
 	}
+}
+
+func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
+	uinfo := auth.getUserInfo(code)
+	if uinfo.UserId != "" {
+		employee := auth.getEmployee(uinfo.UserId)
+		userInfo.Avatar = employee.Avatar
+		userInfo.Email = employee.Email
+		userInfo.Gender = employee.Gender
+		userInfo.Nick = employee.Name
+		userInfo.Source = "workwx"
+	}
+	return
 }

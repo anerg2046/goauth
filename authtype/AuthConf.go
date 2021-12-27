@@ -1,4 +1,4 @@
-package goauthconf
+package authtype
 
 type AuthConf struct {
 	AppID     string
