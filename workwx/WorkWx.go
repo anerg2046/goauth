@@ -68,5 +68,6 @@ func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
 		userInfo.Nick = employee.Name
 		userInfo.Source = "workwx"
 	}
+	utils.Pretty(userInfo)
 	return
 }
