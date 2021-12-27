@@ -3,6 +3,7 @@ package workwx
 import (
 	"encoding/json"
 
+	"github.com/anerg2046/go-pkg/utils"
 	e "github.com/anerg2046/goauth/error"
 	"github.com/anerg2046/goauth/r"
 )
@@ -42,6 +43,7 @@ func (auth *WorkWx) getOpenId(userId string) (rsp RspOpenId) {
 		panic(&e.GoAuthError{Err: err.Error(), Info: "请求企业微信接口出错-userid转换openid"})
 	}
 	json.Unmarshal(resp.Body(), &rsp)
+	utils.Pretty(string(resp.Body()))
 	if rsp.Errcode != 0 {
 		panic(&e.GoAuthError{Err: rsp.Errmsg, Info: "请求企业微信接口出错-userid转换openid"})
 	}
