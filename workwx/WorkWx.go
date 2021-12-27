@@ -45,6 +45,6 @@ func (auth *WorkWx) GetRedirectUrl() string {
 	q.Add("appid", auth.conf.AppID)
 	q.Add("scope", "snsapi_base")
 	q.Add("response_type", "code")
-	q.Add("redirect_uri", "auth.conf.Callback")
+	q.Add("redirect_uri", auth.conf.Callback)
 	return "https://open.weixin.qq.com/connect/oauth2/authorize?" + q.Encode() + "#wechat_redirect"
 }
