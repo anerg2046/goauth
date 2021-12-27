@@ -1,6 +1,8 @@
 package workwx
 
 import (
+	"net/url"
+
 	e "github.com/anerg2046/goauth/error"
 	"github.com/anerg2046/goauth/goauthconf"
 	"github.com/anerg2046/goauth/i"
@@ -35,4 +37,14 @@ func (auth *WorkWx) AccessToken() string {
 		accessToken = *res.Data().(*string)
 	}
 	return accessToken
+}
+
+func (auth *WorkWx) GetRedirectUrl() string {
+	var uri url.URL
+	q := uri.Query()
+	q.Add("appid", auth.conf.AppID)
+	q.Add("scope", "snsapi_base")
+	q.Add("response_type", "code")
+	q.Add("redirect_uri", "auth.conf.Callback")
+	return "https://open.weixin.qq.com/connect/oauth2/authorize?" + q.Encode() + "#wechat_redirect"
 }
