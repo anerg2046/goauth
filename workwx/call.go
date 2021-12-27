@@ -7,14 +7,22 @@ import (
 	"github.com/anerg2046/goauth/r"
 )
 
-const ApiUri = "https://qyapi.weixin.qq.com/cgi-bin"
+const ApiUri = "https://qyapi.weixin.qq.com/cgi-bin/"
 
-func (auth *WorkWx) getToken() RspAccessToken {
-	resp, err := r.HttpClient.R().SetQueryParam("corpid", auth.conf.AppID).SetQueryParam("corpsecret", auth.conf.AppSecret).Get(ApiUri + "/gettoken")
+func (auth *WorkWx) getToken() (accessToken RspAccessToken) {
+	resp, err := r.HttpClient.R().SetQueryParam("corpid", auth.conf.AppID).SetQueryParam("corpsecret", auth.conf.AppSecret).Get(ApiUri + "gettoken")
 	if err != nil {
-		panic(&e.GoAuthError{Err: err.Error(), Info: "请求企业微信接口出错"})
+		panic(&e.GoAuthError{Err: err.Error(), Info: "请求企业微信接口出错-获取Token"})
 	}
-	var accessToken RspAccessToken
 	json.Unmarshal(resp.Body(), &accessToken)
 	return accessToken
+}
+
+func (auth *WorkWx) getUserInfo(code string) (userInfo RspUserInfo) {
+	resp, err := r.HttpClient.R().SetQueryParam("access_token", auth.AccessToken()).SetQueryParam("code", code).Get(ApiUri + "user/getuserinfo")
+	if err != nil {
+		panic(&e.GoAuthError{Err: err.Error(), Info: "请求企业微信接口出错-获取访问用户身份"})
+	}
+	json.Unmarshal(resp.Body(), &userInfo)
+	return userInfo
 }
