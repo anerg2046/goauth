@@ -42,9 +42,16 @@ func (auth *WorkWx) AccessToken() string {
 func (auth *WorkWx) GetRedirectUrl() string {
 	var uri url.URL
 	q := uri.Query()
-	q.Add("appid", auth.conf.AppID)
-	q.Add("scope", "snsapi_base")
-	q.Add("response_type", "code")
-	q.Add("redirect_uri", auth.conf.Callback)
-	return "https://open.weixin.qq.com/connect/oauth2/authorize?" + q.Encode() + "#wechat_redirect"
+	if auth.conf.Scan {
+		q.Add("appid", auth.conf.AppID)
+		q.Add("agentid", auth.conf.AgentID)
+		q.Add("redirect_uri", auth.conf.Callback)
+		return "https://open.work.weixin.qq.com/wwopen/sso/qrConnect?" + q.Encode()
+	} else {
+		q.Add("appid", auth.conf.AppID)
+		q.Add("scope", "snsapi_base")
+		q.Add("response_type", "code")
+		q.Add("redirect_uri", auth.conf.Callback)
+		return "https://open.weixin.qq.com/connect/oauth2/authorize?" + q.Encode() + "#wechat_redirect"
+	}
 }
