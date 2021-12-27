@@ -37,3 +37,8 @@ type RspEmployee struct {
 	Email  string `json:"email,omitempty"`
 	Mobile string `json:"mobile,omitempty"`
 }
+
+type RspOpenId struct {
+	err
+	OpenId string `json:"openid,omitempty"`
+}

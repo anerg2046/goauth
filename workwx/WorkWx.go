@@ -3,7 +3,6 @@ package workwx
 import (
 	"net/url"
 
-	"github.com/anerg2046/go-pkg/utils"
 	"github.com/anerg2046/goauth/authtype"
 	e "github.com/anerg2046/goauth/error"
 	"github.com/anerg2046/goauth/i"
@@ -59,15 +58,18 @@ func (auth *WorkWx) GetRedirectUrl() string {
 
 func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
 	uinfo := auth.getUserInfo(code)
-	utils.Pretty(uinfo)
 	if uinfo.UserId != "" {
 		employee := auth.getEmployee(uinfo.UserId)
+		userInfo.OpenId = auth.getOpenId(uinfo.UserId).OpenId
 		userInfo.Avatar = employee.Avatar
 		userInfo.Email = employee.Email
 		userInfo.Gender = employee.Gender
 		userInfo.Nick = employee.Name
-		userInfo.Source = "workwx"
+		userInfo.IsEmployee = true
+	} else {
+		userInfo.OpenId = uinfo.OpenId
+		userInfo.IsEmployee = false
 	}
-	utils.Pretty(userInfo)
+	userInfo.Source = "workwx"
 	return
 }
