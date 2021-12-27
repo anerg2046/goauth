@@ -2,8 +2,9 @@ package workwx
 
 import (
 	"encoding/json"
-	e "goauth/error"
-	"goauth/r"
+
+	e "github.com/anerg2046/goauth/error"
+	"github.com/anerg2046/goauth/r"
 )
 
 const ApiUri = "https://qyapi.weixin.qq.com/cgi-bin"

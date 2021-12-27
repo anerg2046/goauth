@@ -1,10 +1,11 @@
 package goauth
 
 import (
-	"goauth/goauthconf"
-	"goauth/i"
-	"goauth/workwx"
 	"strings"
+
+	"github.com/anerg2046/goauth/goauthconf"
+	"github.com/anerg2046/goauth/i"
+	"github.com/anerg2046/goauth/workwx"
 
 	"github.com/muesli/cache2go"
 )

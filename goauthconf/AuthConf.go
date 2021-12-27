@@ -5,4 +5,5 @@ type AuthConf struct {
 	AppSecret string
 	Callback  string
 	Scpoe     string
+	State     string
 }

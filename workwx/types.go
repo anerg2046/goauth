@@ -1,8 +1,9 @@
 package workwx
 
 import (
-	"goauth/goauthconf"
 	"time"
+
+	"github.com/anerg2046/goauth/goauthconf"
 
 	"github.com/muesli/cache2go"
 )
