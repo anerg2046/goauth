@@ -2,6 +2,7 @@ package workwx
 
 import (
 	"net/url"
+	"time"
 
 	"github.com/anerg2046/go-pkg/logrus"
 	"github.com/anerg2046/go-pkg/utils"
@@ -31,7 +32,7 @@ func (auth *WorkWx) AccessToken() string {
 		token := auth.getToken()
 		utils.Pretty(token)
 		accessToken = token.AccessToken
-		auth.cache.Add(cacheKey, token.ExpiresIn, &accessToken)
+		auth.cache.Add(cacheKey, token.ExpiresIn*time.Second, &accessToken)
 
 	} else {
 		logrus.Log.Info("缓存获取token")

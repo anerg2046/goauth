@@ -13,7 +13,7 @@ type WorkWx struct {
 }
 
 type err struct {
-	Errcode int    `json:"errcode,omitempty"`
+	Errcode int    `json:"errcode"`
 	Errmsg  string `json:"errmsg,omitempty"`
 }
 
