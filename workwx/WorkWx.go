@@ -4,8 +4,8 @@ import (
 	"net/url"
 
 	"github.com/anerg2046/go-pkg/logrus"
+	"github.com/anerg2046/go-pkg/utils"
 	"github.com/anerg2046/goauth/authtype"
-	e "github.com/anerg2046/goauth/error"
 	"github.com/anerg2046/goauth/i"
 
 	"github.com/muesli/cache2go"
@@ -29,12 +29,10 @@ func (auth *WorkWx) AccessToken() string {
 	if err != nil {
 		logrus.Log.Info("请求获取token")
 		token := auth.getToken()
-		if token.Errcode == 0 {
-			accessToken = token.AccessToken
-			auth.cache.Add(cacheKey, token.ExpiresIn, &accessToken)
-		} else {
-			panic(&e.GoAuthError{Err: token.Errmsg, Info: "获取企业微信Token失败"})
-		}
+		utils.Pretty(token)
+		accessToken = token.AccessToken
+		auth.cache.Add(cacheKey, token.ExpiresIn, &accessToken)
+
 	} else {
 		logrus.Log.Info("缓存获取token")
 		accessToken = res.Data().(string)
