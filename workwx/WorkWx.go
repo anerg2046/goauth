@@ -67,7 +67,7 @@ func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
 		userInfo.OpenId = uinfo.OpenId
 		userInfo.IsEmployee = false
 	}
-	userInfo.Source = "workwx"
+	userInfo.Source = authtype.WORKWX
 	return
 }
 
