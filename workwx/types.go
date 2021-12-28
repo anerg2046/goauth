@@ -1,8 +1,6 @@
 package workwx
 
 import (
-	"time"
-
 	"github.com/anerg2046/goauth/authtype"
 	"github.com/muesli/cache2go"
 )
@@ -19,8 +17,8 @@ type err struct {
 
 type RspAccessToken struct {
 	err
-	AccessToken string        `json:"access_token,omitempty"`
-	ExpiresIn   time.Duration `json:"expires_in,omitempty"`
+	AccessToken string `json:"access_token,omitempty"`
+	ExpiresIn   int    `json:"expires_in,omitempty"`
 }
 
 type RspUserInfo struct {

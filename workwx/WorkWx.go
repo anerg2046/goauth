@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/anerg2046/go-pkg/logrus"
-	"github.com/anerg2046/go-pkg/utils"
 	"github.com/anerg2046/goauth/authtype"
 	"github.com/anerg2046/goauth/i"
 
@@ -30,9 +29,8 @@ func (auth *WorkWx) AccessToken() string {
 	if err != nil {
 		logrus.Log.Info("请求获取token")
 		token := auth.getToken()
-		utils.Pretty(token)
 		accessToken = token.AccessToken
-		auth.cache.Add(cacheKey, token.ExpiresIn*time.Second, &accessToken)
+		auth.cache.Add(cacheKey, time.Duration(token.ExpiresIn)*time.Second, &accessToken)
 
 	} else {
 		logrus.Log.Info("缓存获取token")
