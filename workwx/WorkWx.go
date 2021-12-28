@@ -37,7 +37,7 @@ func (auth *WorkWx) AccessToken() string {
 		}
 	} else {
 		logrus.Log.Info("缓存获取token")
-		accessToken = *res.Data().(*string)
+		accessToken = res.Data().(string)
 	}
 	return accessToken
 }
