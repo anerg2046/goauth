@@ -28,7 +28,7 @@ func (auth *WorkWx) AccessToken() string {
 	if err != nil {
 		token := auth.getToken()
 		accessToken = token.AccessToken
-		auth.cache.Add(cacheKey, time.Duration(token.ExpiresIn)*time.Second, &accessToken)
+		auth.cache.Add(cacheKey, time.Duration(token.ExpiresIn/2)*time.Second, &accessToken)
 	} else {
 		accessToken = *res.Data().(*string)
 	}
