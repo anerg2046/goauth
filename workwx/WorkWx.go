@@ -28,7 +28,7 @@ func (auth *WorkWx) AccessToken() string {
 	if err != nil {
 		token := auth.getToken()
 		accessToken = token.AccessToken
-		auth.cache.Add(cacheKey, time.Duration(token.ExpiresIn/2)*time.Second, &accessToken)
+		auth.cache.Add(cacheKey, time.Duration(token.ExpiresIn)*time.Second, &accessToken)
 	} else {
 		accessToken = *res.Data().(*string)
 	}
@@ -69,6 +69,11 @@ func (auth *WorkWx) GetUserInfo(code string) (userInfo authtype.UserInfo) {
 	}
 	userInfo.Source = authtype.WORKWX
 	return
+}
+
+func (auth *WorkWx) clearCache() {
+	cacheKey := auth.Platform() + "accessToken"
+	auth.cache.Delete(cacheKey)
 }
 
 func parseGender(gender string) string {
